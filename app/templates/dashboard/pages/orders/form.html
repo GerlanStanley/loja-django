@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container bg-white py-3 px-4">
+        <h1>Realizar pedido</h1>
+        <form action="." method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <div class="form-group mt-4">
+                        <label for="field.id_for_label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            {{ order_product_formset.management_form }}
+
+            <div id="order_product_container">
+                {% for formset in order_product_formset %}
+                    <div id="order_product_form" class="form-group mt-4">
+                        {{ formset.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button id="add_form" class="btn btn-secondary" type="button">Adicionar produto</button>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+
+            <input type="submit" class="btn btn-primary" value="Cadastrar"/>
+        </form>
+    </div>
+
+    <script>
+        let orderProductForm = document.querySelectorAll("#order_product_form")
+        let container = document.querySelector("#order_product_container")
+        let addButton = document.querySelector("#add_form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        let formNum = orderProductForm.length - 1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e) {
+            e.preventDefault()
+
+            let newForm = orderProductForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`, 'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.appendChild(newForm)
+
+            totalForms.setAttribute('value', `${formNum + 1}`)
+        }
+    </script>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="bg-white border-bottom-0">
+    <div class="container">
+        <header class="navbar navbar-expand navbar-light justify-content-between mb-4">
+            <h2 class="fs-4">Loja</h2>
+
+            {% with url_name=request.resolver_match.url_name %}
+                <div class="navbar-nav">
+                    <a href="{% url 'dashboard:home' %}"
+                       class="nav-item nav-link {% if url_name == 'home' %}active{% endif %}"
+                       aria-current="page">
+                        Home
+                    </a>
+                    <a href="{% url 'dashboard:clients-list' %}"
+                       class="nav-item nav-link {% if url_name == 'clients-list' %}active{% endif %}"
+                       aria-current="page">
+                        Clientes
+                    </a>
+                    <a href="{% url 'dashboard:products-list' %}"
+                       class="nav-item nav-link {% if url_name == 'products-list' %}active{% endif %}">
+                        Produtos
+                    </a>
+                    <a href="{% url 'dashboard:orders-list' %}"
+                       class="nav-item nav-link {% if url_name == 'orders-list' %}active{% endif %}">
+                        Pedidos
+                    </a>
+                </div>
+            {% endwith %}
+        </header>
+    </div>
+</div>

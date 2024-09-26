@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container bg-white py-3 px-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <h1>Pedidos</h1>
+            <a href="{% url 'dashboard:order-form' %}" class="btn btn-primary">Fazer pedido</a>
+        </div>
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id | stringformat:"06d" }}</td>
+                    <td>{{ order.client.name }}</td>
+                    <td>{{ order.datetime }}</td>
+                    <td style="text-align: right">
+                        <a href="{% url 'dashboard:order-detail' pk=order.id %}">
+                            Ver detalhes
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <li>Nenhum pedido realizado.</li>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% include 'dashboard/partials/_pagination.html' %}
+    </div>
+{% endblock content %}

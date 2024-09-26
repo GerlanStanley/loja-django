@@ -1,0 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary);
+    font-weight: bold;
+}

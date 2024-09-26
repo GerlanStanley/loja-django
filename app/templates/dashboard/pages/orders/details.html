@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container bg-white py-3 px-4">
+        <h1>Detalhes do pedido #{{ object.id | stringformat:"06d"  }}</h1>
+        <dl class="row mt-4">
+            <dt class="col-sm-3">Cliente</dt>
+            <dd class="col-sm-9">{{ object.client.name }}</dd>
+
+            <dt class="col-sm-3">Data</dt>
+            <dd class="col-sm-9">{{ object.datetime }}</dd>
+        </dl>
+
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in object.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

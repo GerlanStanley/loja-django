@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  {% include 'dashboard/partials/_head.html' %}
+  {% block additional_head %}{% endblock additional_head %}
+</head>
+
+<body class="bg-light">
+  <div>
+    {% include 'dashboard/partials/_header.html' %}
+
+    {% block content %}{% endblock content %}
+
+{#    {% if site_setup.show_pagination %}#}
+{#      {% include 'dashboard/partials/_pagination.html' %}#}
+{#    {% endif %}#}
+
+{#    {% if site_setup.show_footer %}#}
+{#      {% include 'dashboard/partials/_footer.html' %}#}
+{#    {% endif %}#}
+  </div>
+</body>
+</html>
